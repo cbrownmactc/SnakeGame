@@ -16,31 +16,35 @@
     <None Remove="Assets\Food.png" />
     <None Remove="Assets\Head.png" />
     <None Remove="Assets\icon.ico" />
+    <None Remove="Assets\tumbleweed.mp3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Body.png">
+    <Resource Include="Assets\Images\Body.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\DeadBody.png">
+    <Resource Include="Assets\Images\DeadBody.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\DeadHead.png">
+    <Resource Include="Assets\Images\DeadHead.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\DroidSansMono.ttf">
+    <Resource Include="Assets\Images\DroidSansMono.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\Empty.png">
+    <Resource Include="Assets\Images\Empty.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\Food.png">
+    <Resource Include="Assets\Images\Food.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\Head.png" />
-    <Resource Include="Assets\icon.ico">
+    <Resource Include="Assets\Images\Head.png" />
+    <Resource Include="Assets\Images\icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Content Include="Assets\Audio\tumbleweed.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

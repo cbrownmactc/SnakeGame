@@ -38,10 +38,12 @@ namespace SnakeGame
         private bool gameRunning = false;
 
         private readonly Image[,] gridImages;
+        private MediaPlayer backgroundAudio = Audio.Tumbleweed;
 
         public MainWindow()
         {
             InitializeComponent();
+            backgroundAudio.Play();
             gridImages = SetupGrid();
             gameState = new GameState(rows, cols);
         }
@@ -51,6 +53,7 @@ namespace SnakeGame
             Draw();
             await ShowCountDown();
             Overlay.Visibility = Visibility.Hidden;
+
             await GameLoop();
             await ShowGameOver();
             gameState = new GameState(rows, cols);

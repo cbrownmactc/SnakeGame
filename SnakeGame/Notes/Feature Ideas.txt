@@ -1,0 +1,14 @@
+﻿Feature Ideas
+
+Menu icon bar for features
+
+Background music (with mute)
+	https://wpf-tutorial.com/audio-video/playing-audio/
+	Set/Save volume level (for now default to .1)
+Change color by length
+Better death animation
+Sound effects
+Increase speed over time
+Increase scoring over time
+Adjust grid size
+Save high scores

@@ -33,13 +33,14 @@ namespace SnakeGame
             { Direction.Left, 270 }
         };
 
-        private readonly int rows = 30, cols = 30;
+        private readonly int rows = GameSettings.DefaultRows, cols = GameSettings.DefaultCols;
         private GameState gameState;
         private bool gameRunning = false;
 
         private readonly Image[,] gridImages;
         private MediaPlayer backgroundAudio = Audio.Tumbleweed;
         private bool backgroundPlaying = true;
+        private Random random = new Random();
 
         public MainWindow()
         {
@@ -103,8 +104,9 @@ namespace SnakeGame
         {
             while (!gameState.GameOver)
             {
-                await Task.Delay(100);
+                await Task.Delay(GameSettings.FrameFrequency);
                 gameState.Move();
+                
                 Draw();
             }
         }
@@ -165,8 +167,8 @@ namespace SnakeGame
 
         private async Task ShowGameOver()
         {
-            await DrawDeadSnake();
             Audio.Dead.Play();
+            await DrawDeadSnake();
             await Task.Delay(1000);
             Overlay.Visibility = Visibility.Visible;
             OverlayText.Text = "Press any key to start";
@@ -213,6 +215,14 @@ namespace SnakeGame
                 ImageSource source = (i == 0) ? Images.DeadHead : Images.DeadBody;
                 gridImages[pos.Row, pos.Col].Source = source;
                 await Task.Delay(50);
+            }
+        }
+
+        private void PlaySoundFx()
+        {
+            if (random.NextDouble() < GameSettings.SoundFxFrequency)
+            {
+                new List<MediaPlayer>() { Audio.Hiss0, Audio.Hiss1, Audio.Hiss2 }[random.Next(0, 3)].Play();
             }
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace SnakeGame
 {
@@ -169,6 +170,10 @@ namespace SnakeGame
             {
                 AddHead(newHeadPos);
                 Score++;
+
+                // This is succinct, but seems like there might be a cleaner way
+                new List<MediaPlayer>() { Audio.Bell, Audio.WhipCrack }[random.Next(0, 2)].Play();
+
                 AddFood();
             }
         }

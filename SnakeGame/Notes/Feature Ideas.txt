@@ -3,6 +3,7 @@
 Menu icon bar for features
 
 Background music (with mute)
+	Done - Branch: 1-Audio
 	https://wpf-tutorial.com/audio-video/playing-audio/
 	Set/Save volume level (for now default to .1)
 

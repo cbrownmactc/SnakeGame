@@ -42,12 +42,22 @@ namespace SnakeGame
             return player;
         }
 
+        /// <summary>
+        /// Method to use if media should play repeatedly.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void PlayerRepeat_MediaEnded(object? sender, EventArgs e)
         {
             MediaPlayer m = sender as MediaPlayer;
             m.Play();
         }
 
+        /// <summary>
+        /// Method to use if media should reset to 0 when completed playing.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void Player_MediaEnded(object? sender, EventArgs e)
         {
             MediaPlayer m = sender as MediaPlayer;

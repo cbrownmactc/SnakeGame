@@ -11,11 +11,9 @@ namespace SnakeGame
         public int Row { get; }
         public int Col {  get; }
 
-        public Position(int row, int col) {  Row = row; Col = col; }
-
-        public Position Translate(Direction dir)
-        {
-            return new Position(Row + dir.RowOffset, Col + dir.ColOffset);
+        public Position(int row, int col) 
+        {  Row = row; 
+            Col = col; 
         }
 
         public override bool Equals(object? obj)
@@ -28,6 +26,11 @@ namespace SnakeGame
         public override int GetHashCode()
         {
             return HashCode.Combine(Row, Col);
+        }
+
+        public Position Translate(Direction dir)
+        {
+            return new Position(Row + dir.RowOffset, Col + dir.ColOffset);
         }
 
         public static bool operator ==(Position? left, Position? right)

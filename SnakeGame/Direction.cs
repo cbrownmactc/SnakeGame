@@ -22,11 +22,6 @@ namespace SnakeGame
             ColOffset = colOffset;
         }
 
-        public Direction Opposite()
-        {
-            return new Direction(-RowOffset, -ColOffset);
-        }
-
         public override bool Equals(object? obj)
         {
             return obj is Direction direction &&
@@ -37,6 +32,11 @@ namespace SnakeGame
         public override int GetHashCode()
         {
             return HashCode.Combine(RowOffset, ColOffset);
+        }
+
+        public Direction Opposite()
+        {
+            return new Direction(-RowOffset, -ColOffset);
         }
 
         public static bool operator ==(Direction? left, Direction? right)

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SnakeGame"
         mc:Ignorable="d"
-        Title="Snake" Height="500" Width="800"
+        Title="Snake" Height="550" Width="800"
         MinWidth="300" MinHeight="300"
         Background="{StaticResource BackgroundColor}"
         Foreground="{StaticResource TextColor}"
@@ -36,7 +36,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 RenderOptions.EdgeMode="Aliased"
-                Margin="20,0,20,20">
+                Margin="20,0,20,50">
                 <UniformGrid x:Name="GameGrid"
                          Width="400"
                          Height="400"
@@ -45,7 +45,15 @@
                          RenderOptions.BitmapScalingMode="HighQuality">
 
                 </UniformGrid>
+
             </Border>
+            <Viewbox x:Name="MenuBar"
+                   Grid.Row="1"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Bottom"
+                   Margin="10">
+                <Image x:Name="MenuBackgroundSound" Source="/Assets/Images/SpeakerIconGreen.png" Canvas.Left="10" Canvas.Top="-106" Width="32" Height="32" MouseDown="MenuBackgroundSound_MouseDown"/>
+            </Viewbox>
 
             <Border x:Name="Overlay"
                     Grid.Row="1"

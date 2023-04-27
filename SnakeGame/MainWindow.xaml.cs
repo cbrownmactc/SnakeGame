@@ -39,6 +39,7 @@ namespace SnakeGame
 
         private readonly Image[,] gridImages;
         private MediaPlayer backgroundAudio = Audio.Tumbleweed;
+        private bool backgroundPlaying = true;
 
         public MainWindow()
         {
@@ -165,6 +166,7 @@ namespace SnakeGame
         private async Task ShowGameOver()
         {
             await DrawDeadSnake();
+            Audio.Dead.Play();
             await Task.Delay(1000);
             Overlay.Visibility = Visibility.Visible;
             OverlayText.Text = "Press any key to start";
@@ -178,6 +180,27 @@ namespace SnakeGame
 
             int rotation = dirToRotation[gameState.Dir];
             image.RenderTransform = new RotateTransform(rotation);
+        }
+
+        private void MenuBackgroundSound_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ToggleBackgroundAudio();
+        }
+
+        private void ToggleBackgroundAudio()
+        {
+            if (backgroundPlaying)
+            {
+                backgroundPlaying = false;
+                backgroundAudio.Pause();
+                MenuBackgroundSound.Source = Images.SpeakerOff;
+            }
+            else
+            {
+                backgroundPlaying = true;
+                backgroundAudio.Play();
+                MenuBackgroundSound.Source = Images.SpeakerOn;
+            }
         }
 
         private async Task DrawDeadSnake()

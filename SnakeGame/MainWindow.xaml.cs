@@ -63,6 +63,15 @@ namespace SnakeGame
 
         private async void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            // Handle menu hot keys (should work any time and not trigger game start)
+            if (e.Key == Key.Space)
+            {
+                ToggleBackgroundAudio();
+                e.Handled = true;
+                return;
+            }
+
+
             if (Overlay.Visibility == Visibility.Visible)
             {
                 e.Handled = true;
@@ -106,7 +115,7 @@ namespace SnakeGame
             {
                 await Task.Delay(GameSettings.FrameFrequency);
                 gameState.Move();
-                
+                PlaySoundFx();
                 Draw();
             }
         }
@@ -160,8 +169,11 @@ namespace SnakeGame
         {
             for(int i=3; i >= 1; i--)
             {
+                Audio.ClockTick.Play();
                 OverlayText.Text = i.ToString();
-                await Task.Delay(500);
+
+                // We'll wait for as long as the tick audio is.
+                await Task.Delay(Convert.ToInt32(Audio.ClockTick.NaturalDuration.TimeSpan.TotalMilliseconds));
             }
         }
 

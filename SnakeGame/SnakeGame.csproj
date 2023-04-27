@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Remove="Assets\Audio\bell.wav" />
+    <None Remove="Assets\Audio\clock-ticking.mp3" />
     <None Remove="Assets\Audio\dead.wav" />
     <None Remove="Assets\Audio\hiss0.wav" />
     <None Remove="Assets\Audio\hiss1.wav" />
@@ -51,6 +52,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="Assets\Audio\bell.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Audio\clock-ticking.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Audio\dead.wav">

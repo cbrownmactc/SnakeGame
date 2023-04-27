@@ -15,6 +15,7 @@ namespace SnakeGame
         public readonly static MediaPlayer Hiss1 = LoadAudio("hiss1.wav", 0.4);
         public readonly static MediaPlayer Hiss2 = LoadAudio("hiss2.wav", 0.4);
         public readonly static MediaPlayer WhipCrack = LoadAudio("whip-crack-1.wav", 0.1);
+        public readonly static MediaPlayer ClockTick = LoadAudio("clock-ticking.mp3", 0.2);
 
 
         /// <summary>

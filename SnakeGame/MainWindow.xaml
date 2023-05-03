@@ -51,8 +51,12 @@
                    Grid.Row="1"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Bottom"
-                   Margin="10">
-                <Image x:Name="MenuBackgroundSound" Source="/Assets/Images/SpeakerIconGreen.png" Canvas.Left="10" Canvas.Top="-106" Width="32" Height="32" MouseDown="MenuBackgroundSound_MouseDown"/>
+                   Height="40"
+                   Margin="8">
+                <UniformGrid Height="40" Width="300" VerticalAlignment="Center" Margin="0" Rows="1">
+                    <Image x:Name="MenuBackgroundSound" Source="/Assets/Images/SpeakerIconGreen.png" VerticalAlignment="Center" MouseDown="MenuBackgroundSound_MouseDown"/>
+                    <Image x:Name="MenuSpeed" Source="/Assets/Images/SpeedIconGreen.png" VerticalAlignment="Center" MouseDown="MenuSpeed_MouseDown" HorizontalAlignment="Center" Panel.ZIndex="99999999"/>
+                </UniformGrid>
             </Viewbox>
 
             <Border x:Name="Overlay"

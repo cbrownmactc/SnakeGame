@@ -12,5 +12,6 @@ namespace SnakeGame
         public static int DefaultCols { get; set; } = 20;
         public static double SoundFxFrequency = 0.03;
         public static int FrameFrequency { get; set; } = 100;
+        public static int SpeedAdjustment { get; set; } = 2;
     }
 }

@@ -15,18 +15,25 @@ namespace SnakeGame
         public GridValue[,] Grid { get; }
         public Direction Dir { get; private set; }
         public int Score { get; private set; }
+        public int FruitCount { get; private set; }
         public bool GameOver { get; private set; }
+        public int CurrentFrequency { get; set; }
+        public bool AdjustableSpeed { get; set; }
+
+        public int TotalMoves { get; set;  }
 
         private readonly LinkedList<Direction> dirChanges = new LinkedList<Direction>();
         private readonly LinkedList<Position> snakePositions = new LinkedList<Position>();
         private readonly Random random = new Random();
 
-        public GameState(int rows, int cols)
+        public GameState(int rows, int cols, int frameFrequency, bool adjustableSpeed)
         {
             Rows = rows;
             Cols = cols;
             Grid = new GridValue[rows, cols];
             Dir = Direction.Right;
+            CurrentFrequency = GameSettings.FrameFrequency;
+            AdjustableSpeed = adjustableSpeed;
 
             AddSnake();
             AddFood();
@@ -49,6 +56,21 @@ namespace SnakeGame
         {
             snakePositions.AddFirst(pos);
             Grid[pos.Row, pos.Col] = GridValue.Snake;
+        }
+
+        private void AdjustSpeed()
+        {
+            if (AdjustableSpeed)
+            {
+                // For now, decrease frequency every 50 moves, minimum of 20
+                //CurrentFrequency = GameSettings.FrameFrequency - (TotalMoves / 50);
+
+                // Or, reduce frequency for each fruit we've got
+                CurrentFrequency = GameSettings.FrameFrequency - (FruitCount * GameSettings.SpeedAdjustment);
+
+                CurrentFrequency = Math.Max(CurrentFrequency, 20);
+
+            }
         }
 
         private void AddSnake()
@@ -112,6 +134,9 @@ namespace SnakeGame
 
         public void Move()
         {
+            TotalMoves++;
+            AdjustSpeed();
+
             if (dirChanges.Count > 0)
             {
                 Dir = dirChanges.First.Value;
@@ -132,7 +157,18 @@ namespace SnakeGame
             else if (hit == GridValue.Food)
             {
                 AddHead(newHeadPos);
-                Score++;
+                FruitCount++;
+
+                // If adjustable speed, score should go up faster at higher levels
+                if (AdjustableSpeed)
+                {
+                    Score += 1 + (TotalMoves / 50);
+                }
+                else
+                {
+                    Score++;
+                }
+
 
                 // This is succinct, but seems like there might be a cleaner way
                 new List<MediaPlayer>() { Audio.Bell, Audio.WhipCrack }[random.Next(0, 2)].Play();

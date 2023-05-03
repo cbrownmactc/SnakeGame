@@ -6,11 +6,13 @@ Background music (with mute)
 	Done - Branch: 1-Audio
 	https://wpf-tutorial.com/audio-video/playing-audio/
 	Set/Save volume level (for now default to .1)
+	Sound effects
+
+Increase speed over time
+Increase scoring over time
 
 Change color by length
 Better death animation
-Sound effects
-Increase speed over time
-Increase scoring over time
+
 Adjust grid size
 Save high scores

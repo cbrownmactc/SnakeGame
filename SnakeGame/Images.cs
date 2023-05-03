@@ -15,6 +15,8 @@ namespace SnakeGame
         public readonly static ImageSource DeadHead = LoadImage("DeadHead.png");
         public readonly static ImageSource SpeakerOn = LoadImage("SpeakerIconGreen.png");
         public readonly static ImageSource SpeakerOff = LoadImage("SpeakerIconGray.png");
+        public readonly static ImageSource SpeedOn = LoadImage("SpeedIconGreen.png");
+        public readonly static ImageSource SpeedOff = LoadImage("SpeedIconGray.png");
 
         private static ImageSource LoadImage(string filename)
         {

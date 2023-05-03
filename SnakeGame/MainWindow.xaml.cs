@@ -39,22 +39,25 @@ namespace SnakeGame
 
         private readonly Image[,] gridImages;
         private MediaPlayer backgroundAudio = Audio.Tumbleweed;
-        private bool backgroundPlaying = true;
         private Random random = new Random();
+
+
+        private bool backgroundPlaying = true;
+        private bool speedOn = true;
 
         public MainWindow()
         {
             InitializeComponent();
-            backgroundAudio.Play();
+            //backgroundAudio.Play();
             gridImages = SetupGrid();
-            gameState = new GameState(rows, cols);
+            gameState = new GameState(rows, cols, GameSettings.FrameFrequency, true);
         }
 
         private void Draw()
         {
             DrawGrid();
             DrawSnakeHead();
-            ScoreText.Text = $"SCORE {gameState.Score}";
+            ScoreText.Text = $"SCORE {gameState.Score} [{gameState.TotalMoves}]";
         }
 
         private async Task DrawDeadSnake()
@@ -97,7 +100,7 @@ namespace SnakeGame
         {
             while (!gameState.GameOver)
             {
-                await Task.Delay(GameSettings.FrameFrequency);
+                await Task.Delay(gameState.CurrentFrequency);
                 gameState.Move();
                 PlaySoundFx();
                 Draw();
@@ -107,6 +110,11 @@ namespace SnakeGame
         private void MenuBackgroundSound_MouseDown(object sender, MouseButtonEventArgs e)
         {
             ToggleBackgroundAudio();
+        }
+
+        private void MenuSpeed_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ToggleVariableSpeed();
         }
 
         private void PlaySoundFx()
@@ -123,9 +131,12 @@ namespace SnakeGame
             await ShowCountDown();
             Overlay.Visibility = Visibility.Hidden;
 
+            if (backgroundPlaying)
+                backgroundAudio.Play();
+
             await GameLoop();
             await ShowGameOver();
-            gameState = new GameState(rows, cols);
+            gameState = new GameState(rows, cols, GameSettings.FrameFrequency, speedOn);
         }
 
         private Image[,] SetupGrid()
@@ -167,6 +178,9 @@ namespace SnakeGame
 
         private async Task ShowGameOver()
         {
+            backgroundAudio.Stop();
+            backgroundAudio.Position = new TimeSpan(0);
+
             Audio.Dead.Play();
             await DrawDeadSnake();
             await Task.Delay(1000);
@@ -188,6 +202,27 @@ namespace SnakeGame
                 backgroundAudio.Play();
                 MenuBackgroundSound.Source = Images.SpeakerOn;
             }
+        }
+
+        private void ToggleVariableSpeed()
+        {
+            // Only show if the overlay is up (NOT mid-game)
+            if (Overlay.Visibility == Visibility.Visible)
+            {
+                if (speedOn)
+                {
+                    speedOn = false;
+                    MenuSpeed.Source = Images.SpeedOff;
+                }
+                else
+                {
+                    speedOn = true;
+                    MenuSpeed.Source = Images.SpeedOn;
+                }
+
+                gameState.AdjustableSpeed = speedOn;
+            }
+
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -216,13 +251,15 @@ namespace SnakeGame
 
         private async void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            // Handle menu hot keys (should work any time and not trigger game start)
+            // Handle menu hot keys that should work any time and not trigger game start
             if (e.Key == Key.Space)
             {
                 ToggleBackgroundAudio();
                 e.Handled = true;
                 return;
             }
+
+            
 
 
             if (Overlay.Visibility == Visibility.Visible)

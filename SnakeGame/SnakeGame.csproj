@@ -25,6 +25,8 @@
     <None Remove="Assets\icon.ico" />
     <None Remove="Assets\Images\SpeakerIconGray.png" />
     <None Remove="Assets\Images\SpeakerIconGreen.png" />
+    <None Remove="Assets\Images\SpeedIconGray.png" />
+    <None Remove="Assets\Images\SpeedIconGreen.png" />
     <None Remove="Assets\tumbleweed.mp3" />
   </ItemGroup>
 
@@ -82,6 +84,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Images\SpeakerIconGreen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\SpeedIconGreen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\SpeedIconGray.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

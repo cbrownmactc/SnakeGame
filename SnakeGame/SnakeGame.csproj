@@ -23,6 +23,7 @@
     <None Remove="Assets\Food.png" />
     <None Remove="Assets\Head.png" />
     <None Remove="Assets\icon.ico" />
+    <None Remove="Assets\Images\Head2.png" />
     <None Remove="Assets\Images\SpeakerIconGray.png" />
     <None Remove="Assets\Images\SpeakerIconGreen.png" />
     <None Remove="Assets\Images\SpeedIconGray.png" />
@@ -50,6 +51,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Images\Head.png" />
+    <Resource Include="Assets\Images\Head2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Images\icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

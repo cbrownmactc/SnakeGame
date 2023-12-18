@@ -71,7 +71,7 @@ namespace SnakeGame
                 Position pos = positions[i];
                 ImageSource source = (i == 0) ? Images.DeadHead : Images.DeadBody;
                 gridImages[pos.Row, pos.Col].Source = source;
-                await Task.Delay(50);
+                await Task.Delay(Math.Max(10, 50-i));
             }
         }
 
@@ -184,7 +184,7 @@ namespace SnakeGame
             backgroundAudio.Position = new TimeSpan(0);
 
             Audio.Dead.Play();
-            if (shakeOn) ShakeWindow(2000);
+            if (shakeOn) ShakeWindow(GameSettings.ShakeDuration);
 
             await DrawDeadSnake();
             await Task.Delay(1000);

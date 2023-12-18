@@ -13,5 +13,6 @@ namespace SnakeGame
         public static double SoundFxFrequency = 0.03;
         public static int FrameFrequency { get; set; } = 100;
         public static int SpeedAdjustment { get; set; } = 2;
+        public static int ShakeDuration { get; set; } = 2000;
     }
 }

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace SnakeGame
 {
@@ -41,9 +42,10 @@ namespace SnakeGame
         private MediaPlayer backgroundAudio = Audio.Tumbleweed;
         private Random random = new Random();
 
-
+        // Game play settings
         private bool backgroundPlaying = true;
         private bool speedOn = true;
+        private bool shakeOn = true;
 
         public MainWindow()
         {
@@ -182,6 +184,8 @@ namespace SnakeGame
             backgroundAudio.Position = new TimeSpan(0);
 
             Audio.Dead.Play();
+            if (shakeOn) ShakeWindow(2000);
+
             await DrawDeadSnake();
             await Task.Delay(1000);
             Overlay.Visibility = Visibility.Visible;
@@ -222,7 +226,6 @@ namespace SnakeGame
 
                 gameState.AdjustableSpeed = speedOn;
             }
-
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -259,9 +262,6 @@ namespace SnakeGame
                 return;
             }
 
-            
-
-
             if (Overlay.Visibility == Visibility.Visible)
             {
                 e.Handled = true;
@@ -273,6 +273,25 @@ namespace SnakeGame
                 await RunGame();
                 gameRunning = false;
             }
+        }
+
+        private async Task ShakeWindow(int durationMs)
+        {
+            var oLeft = this.Left;
+            var oTop = this.Top;
+            var shakeTimer = new DispatcherTimer(DispatcherPriority.Send);
+
+            shakeTimer.Tick += (sender, args) =>
+            {
+                this.Left = oLeft + random.Next(-10, 11);
+                this.Top = oTop + random.Next(-10, 11);
+            };
+
+            shakeTimer.Interval = TimeSpan.FromMilliseconds(100);
+            shakeTimer.Start();
+
+            await Task.Delay(durationMs);
+            shakeTimer.Stop();
         }
     }
 }

@@ -174,7 +174,11 @@ namespace SnakeGame
                 OverlayText.Text = i.ToString();
 
                 // We'll wait for as long as the tick audio is.
-                await Task.Delay(Convert.ToInt32(Audio.ClockTick.NaturalDuration.TimeSpan.TotalMilliseconds));
+                // This is to fix an error that cropped up about Duration being "Automatic" and not a TimeSpan.
+                if (Audio.ClockTick.NaturalDuration.HasTimeSpan)
+                    await Task.Delay(Convert.ToInt32(Audio.ClockTick.NaturalDuration.TimeSpan.TotalMilliseconds));
+                else
+                    await Task.Delay(1000);
             }
         }
 

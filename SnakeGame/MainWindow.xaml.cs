@@ -19,6 +19,8 @@ namespace SnakeGame
 
     public partial class MainWindow : Window
     {
+        private MediaPlayer _mediaPlayer;
+
         private readonly Dictionary<GridValue, ImageSource> gridValToImage = new()
         {
             { GridValue.Empty, Images.Empty },
@@ -45,6 +47,9 @@ namespace SnakeGame
             InitializeComponent();
             gridImages = SetupGrid();
             gameState = new GameState(rows, cols);
+            _mediaPlayer = new MediaPlayer();
+            _mediaPlayer.Open(new Uri("Assets/piano.wav", UriKind.Relative));
+
         }
 
         private async Task RunGame()

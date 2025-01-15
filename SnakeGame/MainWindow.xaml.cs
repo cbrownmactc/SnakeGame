@@ -13,11 +13,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+// AM
 namespace SnakeGame
 {
 
     public partial class MainWindow : Window
     {
+        MediaPlayer _mediaPlayer;
         private readonly Dictionary<GridValue, ImageSource> gridValToImage = new()
         {
             { GridValue.Empty, Images.Empty },
@@ -42,6 +44,20 @@ namespace SnakeGame
         public MainWindow()
         {
             InitializeComponent();
+            try
+            {
+                _mediaPlayer = new MediaPlayer();
+                _mediaPlayer.Open(new Uri("Assets/piano.wav", UriKind.Relative));
+                _mediaPlayer.Volume = 1;
+                _mediaPlayer.Play();
+                MessageBox.Show(_mediaPlayer.Source.ToString());
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error playing audio: {ex.Message}", "Audio Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
             gridImages = SetupGrid();
             gameState = new GameState(rows, cols);
         }
@@ -50,6 +66,7 @@ namespace SnakeGame
         {
             Draw();
             await ShowCountDown();
+
             Overlay.Visibility = Visibility.Hidden;
             await GameLoop();
             await ShowGameOver();
@@ -99,7 +116,7 @@ namespace SnakeGame
         {
             while (!gameState.GameOver)
             {
-                await Task.Delay(100);
+                await Task.Delay(50);
                 gameState.Move();
                 Draw();
             }

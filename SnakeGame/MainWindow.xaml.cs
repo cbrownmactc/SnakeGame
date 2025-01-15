@@ -47,11 +47,7 @@ namespace SnakeGame
             InitializeComponent();
             gridImages = SetupGrid();
             gameState = new GameState(rows, cols);
-            _mediaPlayer = new MediaPlayer();
-            _mediaPlayer.Open(new Uri("Assets/piano.wav", UriKind.Relative));
-
         }
-
         private async Task RunGame()
         {
             Draw();
@@ -167,6 +163,7 @@ namespace SnakeGame
 
         private async Task ShowGameOver()
         {
+            AudioFiles.GameOver.Play();
             await DrawDeadSnake();
             await Task.Delay(1000);
             Overlay.Visibility = Visibility.Visible;

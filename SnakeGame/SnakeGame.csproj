@@ -8,14 +8,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\beep.wav" />
     <None Remove="Assets\Body.png" />
     <None Remove="Assets\DeadBody.png" />
     <None Remove="Assets\DeadHead.png" />
     <None Remove="Assets\DroidSansMono.ttf" />
     <None Remove="Assets\Empty.png" />
     <None Remove="Assets\Food.png" />
+    <None Remove="Assets\game-over.wav" />
     <None Remove="Assets\Head.png" />
     <None Remove="Assets\icon.ico" />
+    <None Remove="Assets\piano.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\beep.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\game-over.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\piano.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

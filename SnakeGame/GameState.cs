@@ -167,6 +167,7 @@ namespace SnakeGame
             }
             else if (hit == GridValue.Food)
             {
+                AudioFiles.EatFood.Play();
                 AddHead(newHeadPos);
                 Score++;
                 AddFood();

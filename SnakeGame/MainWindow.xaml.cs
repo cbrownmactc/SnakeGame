@@ -19,7 +19,6 @@ namespace SnakeGame
 
     public partial class MainWindow : Window
     {
-        MediaPlayer _mediaPlayer;
         private readonly Dictionary<GridValue, ImageSource> gridValToImage = new()
         {
             { GridValue.Empty, Images.Empty },
@@ -44,20 +43,6 @@ namespace SnakeGame
         public MainWindow()
         {
             InitializeComponent();
-            try
-            {
-                _mediaPlayer = new MediaPlayer();
-                _mediaPlayer.Open(new Uri("Assets/piano.wav", UriKind.Relative));
-                _mediaPlayer.Volume = 1;
-                _mediaPlayer.Play();
-                MessageBox.Show(_mediaPlayer.Source.ToString());
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error playing audio: {ex.Message}", "Audio Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
             gridImages = SetupGrid();
             gameState = new GameState(rows, cols);
         }

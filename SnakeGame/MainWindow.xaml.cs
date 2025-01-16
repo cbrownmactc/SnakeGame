@@ -19,7 +19,7 @@ namespace SnakeGame
 
     public partial class MainWindow : Window
     {
-        private MediaPlayer _mediaPlayer;
+        private bool _audioMuted = false;
 
         private readonly Dictionary<GridValue, ImageSource> gridValToImage = new()
         {
@@ -178,6 +178,19 @@ namespace SnakeGame
 
             int rotation = dirToRotation[gameState.Dir];
             image.RenderTransform = new RotateTransform(rotation);
+        }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            FormatConvertedBitmap formatConvertedBitmap = 
+                new FormatConvertedBitmap();
+            formatConvertedBitmap.Source = (BitmapSource)Images.MuteButton;
+            formatConvertedBitmap.DestinationFormat = PixelFormats.Gray8;
+
+            _audioMuted = !_audioMuted;
+            MuteButton.Source = _audioMuted ?
+                (ImageSource)formatConvertedBitmap : Images.MuteButton;
+
         }
 
         private async Task DrawDeadSnake()

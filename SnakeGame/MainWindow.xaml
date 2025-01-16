@@ -20,6 +20,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="36"/>
             </Grid.RowDefinitions>
 
             <TextBlock x:Name="ScoreText"
@@ -62,6 +63,11 @@
                            TextWrapping="Wrap"
                            />
             </Border>
+            <StackPanel Grid.Row="2">
+                <Image x:Name="MuteButton" Height="32" Width="32" Source="/Assets/SpeakerIconGreen.png" MouseDown="Image_MouseDown"/>
+
+            </StackPanel>
+
         </Grid>
     </Viewbox>
 </Window>

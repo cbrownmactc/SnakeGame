@@ -20,6 +20,7 @@ namespace SnakeGame
     public partial class MainWindow : Window
     {
         private bool _audioMuted = false;
+        private GameSettings _gameSettings;
 
         private readonly Dictionary<GridValue, ImageSource> gridValToImage = new()
         {
@@ -45,6 +46,7 @@ namespace SnakeGame
         public MainWindow()
         {
             InitializeComponent();
+            _gameSettings = new GameSettings();
             gridImages = SetupGrid();
             gameState = new GameState(rows, cols);
         }
@@ -102,6 +104,11 @@ namespace SnakeGame
             while (!gameState.GameOver)
             {
                 await Task.Delay(100);
+                if (gameState.Score > _gameSettings.HighScore)
+                {
+                    _gameSettings.HighScore = gameState.Score;
+                }
+
                 gameState.Move();
                 Draw();
             }
@@ -136,7 +143,8 @@ namespace SnakeGame
         {
             DrawGrid();
             DrawSnakeHead();
-            ScoreText.Text = $"SCORE {gameState.Score}";
+            ScoreText.Text = $"Score {gameState.Score}";
+            HighScoreText.Text = $"High {_gameSettings.HighScore}";
         }
 
         private void DrawGrid()

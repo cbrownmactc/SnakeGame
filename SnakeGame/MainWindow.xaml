@@ -22,13 +22,22 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="36"/>
             </Grid.RowDefinitions>
-
-            <TextBlock x:Name="ScoreText"
-                   HorizontalAlignment="Center"
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock x:Name="ScoreText"
+                   HorizontalAlignment="Left"
                    VerticalAlignment="Center"
-                   Text="SCORE 0"
+                   Text="Score 0"
                    FontSize="22"
                    Margin="10" />
+
+                <TextBlock x:Name="HighScoreText"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Text="High 0"
+                   FontSize="22"
+                   Margin="10" />
+
+            </StackPanel>
 
             <Border x:Name="GridBorder"
                 Grid.Row="1"

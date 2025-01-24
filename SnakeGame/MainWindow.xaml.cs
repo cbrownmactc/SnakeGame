@@ -16,9 +16,11 @@ using System.Windows.Shapes;
 // AM
 namespace SnakeGame
 {
-
+    
     public partial class MainWindow : Window
     {
+        private GameSettings _gameSettings;
+
         private readonly Dictionary<GridValue, ImageSource> gridValToImage = new()
         {
             { GridValue.Empty, Images.Empty },
@@ -43,6 +45,7 @@ namespace SnakeGame
         public MainWindow()
         {
             InitializeComponent();
+            _gameSettings = new GameSettings();
             gridImages = SetupGrid();
             gameState = new GameState(rows, cols);
         }
@@ -102,6 +105,11 @@ namespace SnakeGame
             while (!gameState.GameOver)
             {
                 await Task.Delay(50);
+                if (_gameSettings.HighScore < gameState.Score)
+                {
+                    _gameSettings.HighScore = gameState.Score;
+                }
+
                 gameState.Move();
                 Draw();
             }
@@ -136,7 +144,8 @@ namespace SnakeGame
         {
             DrawGrid();
             DrawSnakeHead();
-            ScoreText.Text = $"SCORE {gameState.Score}";
+            ScoreText.Text = $"Score {gameState.Score}";
+            HighScoreText.Text = $"High {_gameSettings.HighScore}";
         }
 
         private void DrawGrid()
@@ -190,6 +199,11 @@ namespace SnakeGame
                 gridImages[pos.Row, pos.Col].Source = source;
                 await Task.Delay(50);
             }
+        }
+
+        private void MuteButton_Clicked (object sender, MouseEventArgs e)
+        {
+            _gameSettings.Muted = !_gameSettings.Muted;            
         }
     }
 }

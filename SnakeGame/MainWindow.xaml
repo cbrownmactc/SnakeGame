@@ -20,14 +20,25 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-
-            <TextBlock x:Name="ScoreText"
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock x:Name="ScoreText"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Text="SCORE 0"
+                   Text="Score 0"
                    FontSize="22"
-                   Margin="10" />
+                   Margin="10" Foreground="#FF0BAD3A" Width="280" />
+
+                <TextBlock x:Name="HighScoreText"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Text="High 0"
+                   FontSize="22"
+                   Margin="10" Foreground="#FF214DFF" />
+
+            </StackPanel>
+            
 
             <Border x:Name="GridBorder"
                 Grid.Row="1"
@@ -62,6 +73,12 @@
                            TextWrapping="Wrap"
                            />
             </Border>
+            <Image 
+                HorizontalAlignment="Center" 
+                Height="32" Margin="0,0,0,0" 
+                Grid.Row="2" VerticalAlignment="Top" 
+                Width="32" Source="/Assets/Food.png"
+                MouseDown="MuteButton_Clicked"/>
         </Grid>
     </Viewbox>
 </Window>

@@ -9,5 +9,6 @@ namespace SnakeGame
     public class GameSettings
     {
         public int HighScore { get; set; } = 0;
+        public bool AudioMuted { get; set; } = false;
     }
 }

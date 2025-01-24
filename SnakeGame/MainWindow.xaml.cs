@@ -18,8 +18,7 @@ namespace SnakeGame
 {
 
     public partial class MainWindow : Window
-    {
-        private bool _audioMuted = false;
+    {        
         private GameSettings _gameSettings;
 
         private readonly Dictionary<GridValue, ImageSource> gridValToImage = new()
@@ -195,8 +194,8 @@ namespace SnakeGame
             formatConvertedBitmap.Source = (BitmapSource)Images.MuteButton;
             formatConvertedBitmap.DestinationFormat = PixelFormats.Gray8;
 
-            _audioMuted = !_audioMuted;
-            MuteButton.Source = _audioMuted ?
+            _gameSettings.AudioMuted = !_gameSettings.AudioMuted;
+            MuteButton.Source = _gameSettings.AudioMuted ?
                 (ImageSource)formatConvertedBitmap : Images.MuteButton;
 
         }

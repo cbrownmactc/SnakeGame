@@ -15,15 +15,18 @@ namespace SnakeGame
         public Direction Dir { get; private set; }
         public int Score { get; private set; }
         public bool GameOver { get; private set; }
+       
 
         private readonly LinkedList<Direction> dirChanges = new LinkedList<Direction>();
         private readonly LinkedList<Position> snakePositions = new LinkedList<Position>();
+        private GameSettings _gameSettings;
         private readonly Random random = new Random();
 
-        public GameState(int rows, int cols)
+        public GameState(int rows, int cols, GameSettings gameSettings)
         {
             Rows = rows;
             Cols = cols;
+            _gameSettings = gameSettings;
             Grid = new GridValue[rows, cols];
             Dir = Direction.Right;
 
@@ -67,6 +70,32 @@ namespace SnakeGame
 
             Position pos = empty[random.Next(empty.Count)];
             Grid[pos.Row, pos.Col] = GridValue.Food;
+        }
+
+        public void AddObstacle()
+        {
+            List<Position> empty = new List<Position>(EmptyPositions());
+
+            if (empty.Count == 0)
+            {
+                return;
+            }
+
+            if (random.Next(0, _gameSettings.ObstacleFrequency) == 0)
+            {
+                Position pos = empty[random.Next(empty.Count)];
+                double distance = Math.Sqrt(
+                    Math.Pow(HeadPosition().Row - pos.Row, 2) + 
+                    Math.Pow(HeadPosition().Col - pos.Col, 2));                
+
+                if (Math.Abs(distance) < 4 && empty.Count > 1)
+                {
+                    pos = empty[random.Next(empty.Count)];
+                }
+
+                Grid[pos.Row, pos.Col] = GridValue.Obstacle;
+            }
+            
         }
 
         public Position HeadPosition()
@@ -156,7 +185,8 @@ namespace SnakeGame
             Position newHeadPos = HeadPosition().Translate(Dir);
             GridValue hit = WillHit(newHeadPos);
 
-            if (hit == GridValue.Outside || hit == GridValue.Snake)
+            if (hit == GridValue.Outside || hit == GridValue.Snake
+                || hit == GridValue.Obstacle)
             {
                 GameOver = true;
             }

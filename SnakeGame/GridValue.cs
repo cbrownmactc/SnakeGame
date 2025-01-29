@@ -11,6 +11,7 @@ namespace SnakeGame
         Empty,
         Snake, 
         Food,
-        Outside
+        Outside,
+        Obstacle
     }
 }

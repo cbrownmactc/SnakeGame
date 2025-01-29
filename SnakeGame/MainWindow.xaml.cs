@@ -25,7 +25,9 @@ namespace SnakeGame
         {
             { GridValue.Empty, Images.Empty },
             { GridValue.Snake, Images.Body },
-            { GridValue.Food, Images.Food }
+            { GridValue.Food, Images.Food },
+            { GridValue.Obstacle, Images.Obstacle },
+            { GridValue.Outside, Images.Empty }
         };
 
         private readonly Dictionary<Direction, int> dirToRotation = new Dictionary<Direction, int>()
@@ -47,7 +49,7 @@ namespace SnakeGame
             InitializeComponent();
             _gameSettings = new GameSettings();
             gridImages = SetupGrid();
-            gameState = new GameState(rows, cols);
+            gameState = new GameState(rows, cols, _gameSettings);
         }
 
         private async Task RunGame()
@@ -58,7 +60,7 @@ namespace SnakeGame
             Overlay.Visibility = Visibility.Hidden;
             await GameLoop();
             await ShowGameOver();
-            gameState = new GameState(rows, cols);
+            gameState = new GameState(rows, cols, _gameSettings);
         }
 
         private async void Window_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -102,6 +104,11 @@ namespace SnakeGame
 
         private async Task GameLoop()
         {
+            for (int i=0; i < 5 * _gameSettings.ObstacleFrequency; i++)
+            {
+                gameState.AddObstacle();
+            }
+
             while (!gameState.GameOver)
             {
                 await Task.Delay(50);
@@ -111,6 +118,7 @@ namespace SnakeGame
                 }
 
                 gameState.Move();
+                gameState.AddObstacle();
                 Draw();
             }
         }

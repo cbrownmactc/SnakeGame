@@ -10,5 +10,7 @@ namespace SnakeGame
     {
         public int HighScore { get; set; } = 0;
         public bool AudioMuted { get; set; } = false;
+        public int ObstacleFrequency { get; set; } = 20;
+        public int StartingObstacles { get; set; } = 50;
     }
 }

@@ -25,7 +25,8 @@ namespace SnakeGame
         {
             { GridValue.Empty, Images.Empty },
             { GridValue.Snake, Images.Body },
-            { GridValue.Food, Images.Food }
+            { GridValue.Food, Images.Food },
+            { GridValue.Obstacle, Images.Obstacle }
         };
 
         private readonly Dictionary<Direction, int> dirToRotation = new Dictionary<Direction, int>()
@@ -47,7 +48,7 @@ namespace SnakeGame
             InitializeComponent();
             _gameSettings = new GameSettings();
             gridImages = SetupGrid();
-            gameState = new GameState(rows, cols);
+            gameState = new GameState(rows, cols, _gameSettings);
         }
         private async Task RunGame()
         {
@@ -56,7 +57,7 @@ namespace SnakeGame
             Overlay.Visibility = Visibility.Hidden;
             await GameLoop();
             await ShowGameOver();
-            gameState = new GameState(rows, cols);
+            gameState = new GameState(rows, cols, _gameSettings);
         }
 
         private async void Window_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -100,9 +101,15 @@ namespace SnakeGame
 
         private async Task GameLoop()
         {
+            for (int i=0; i < _gameSettings.StartingObstacles; i++)
+            {
+                gameState.AddObstacle();
+            }
+
             while (!gameState.GameOver)
             {
                 await Task.Delay(100);
+                gameState.AddRandomObstacle();
                 if (gameState.Score > _gameSettings.HighScore)
                 {
                     _gameSettings.HighScore = gameState.Score;
@@ -170,7 +177,9 @@ namespace SnakeGame
 
         private async Task ShowGameOver()
         {
-            AudioFiles.GameOver.Play();
+            if (!_gameSettings.AudioMuted)
+                AudioFiles.GameOver.Play();
+            
             await DrawDeadSnake();
             await Task.Delay(1000);
             Overlay.Visibility = Visibility.Visible;
@@ -197,7 +206,6 @@ namespace SnakeGame
             _gameSettings.AudioMuted = !_gameSettings.AudioMuted;
             MuteButton.Source = _gameSettings.AudioMuted ?
                 (ImageSource)formatConvertedBitmap : Images.MuteButton;
-
         }
 
         private async Task DrawDeadSnake()
